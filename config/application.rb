@@ -38,5 +38,7 @@ module MyAcadmyQuestPractice1
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.i18n.default_locale = :th
   end
 end

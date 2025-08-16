@@ -1,0 +1,11 @@
+th:
+  activerecord:
+    errors:
+      models:
+        quest:
+          attributes:
+            title:
+              blank: "กรุณากรอกข้อมูล"
+  errors:
+    messages:
+      blank: "ห้ามเว้นว่าง"
