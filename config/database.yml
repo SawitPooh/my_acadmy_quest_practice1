@@ -14,21 +14,7 @@ test:
   <<: *default
   database: my_acadmy_quest_practice1_test
 
-# production:
-#   primary: &primary_production
-#     <<: *default
-#     database: my_acadmy_quest_practice1_production
-#     username: my_acadmy_quest_practice1
-#     password: <%= ENV["MY_ACADMY_QUEST_PRACTICE1_DATABASE_PASSWORD"] %>
-#   cache:
-#     <<: *primary_production
-#     database: my_acadmy_quest_practice1_production_cache
-#     migrations_paths: db/cache_migrate
-#   queue:
-#     <<: *primary_production
-#     database: my_acadmy_quest_practice1_production_queue
-#     migrations_paths: db/queue_migrate
-#   cable:
-#     <<: *primary_production
-#     database: my_acadmy_quest_practice1_production_cable
-#     migrations_paths: db/cable_migrate
+production:
+  <<: *default
+  # ใช้ Render DATABASE_URL โดยตรง
+  url: <%= ENV["DATABASE_URL"] %>
