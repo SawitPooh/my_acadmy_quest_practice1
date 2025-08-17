@@ -52,8 +52,8 @@ jobs:
 
   #     - name: Lint code for consistent style
   #       run: bin/rubocop -f github
-    
-  rspec:
+
+  unit_tests:
     runs-on: ubuntu-latest
 
     services:
@@ -95,9 +95,54 @@ jobs:
           bin/rails db:migrate
 
       - name: Run RSpec tests
-        run: bundle exec rspec
+        run: bundle exec rspec spec/models
 
-  e2e:
+  integration_tests:
+      runs-on: ubuntu-latest
+
+      services:
+        postgres:
+          image: postgres:13
+          ports: ['5432:5432']
+          env:
+            POSTGRES_USER: julelti
+            POSTGRES_PASSWORD: Pooh_06202605
+            POSTGRES_DB: my_acadmy_quest_practice1_test
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://julelti:Pooh_06202605@localhost:5432/my_acadmy_quest_practice1_test
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Ruby
+          uses: ruby/setup-ruby@v1
+          with:
+            ruby-version: .ruby-version
+            bundler-cache: true
+
+        - name: Install dependencies
+          run: |
+            bundle install
+            yarn install
+
+        - name: Set up database
+          run: |
+            bin/rails db:create
+            bin/rails db:migrate
+
+        - name: Run RSpec tests
+          run: bundle exec rspec spec/controllers
+
+
+  e2e_tests:
     runs-on: ubuntu-latest
 
     services:
