@@ -6,6 +6,8 @@ th:
           attributes:
             title:
               blank: "กรุณากรอกข้อมูล"
+              taken: "เควสต์นี้มีอยู่แล้ว"
   errors:
     messages:
       blank: "ห้ามเว้นว่าง"
+      taken: "มีอยู่แล้ว"
