@@ -27,7 +27,7 @@ RSpec.describe "HomeController", type: :request do
         }.not_to change(Quest, :count)
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to include("กรุณากรอกข้อมูล")
+        expect(response.body).to include("please fill in")
       end
     end
   end
