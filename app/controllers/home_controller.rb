@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     @quest = Quest.new(quest_params)
 
     if @quest.save
-      redirect_to root_path, notice: "Quest added!"
+      redirect_to root_path
     else
       @quests = Quest.order(created_at: :desc)
       render :index, status: :unprocessable_entity
