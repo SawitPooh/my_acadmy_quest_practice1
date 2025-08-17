@@ -17,7 +17,7 @@
         <!-- Field + error -->
         <div class="w-full md:flex-1 flex flex-col">
             <%= form.text_field :title,
-                placeholder: "เพิ่มเควสต์ที่นี่",
+                placeholder: "เพิ่มเควสต์ของฉัน",
                 class: "border px-3 py-2 rounded w-full #{'border-red-500' if @quest.errors[:title].any?}" %>
 
             <% if @quest.errors[:title].any? %>

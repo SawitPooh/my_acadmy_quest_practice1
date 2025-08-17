@@ -49,6 +49,10 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # E2E / System Test
+  gem "capybara"
+  gem "selenium-webdriver", "~> 4.15"
 end
 
 group :development do
