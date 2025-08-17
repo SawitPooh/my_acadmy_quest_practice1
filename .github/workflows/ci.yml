@@ -182,6 +182,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
           
+      - name: Install ChromeDriver
+        run: sudo apt-get install -y chromium-chromedriver
+
       - name: Install dependencies
         run: |
           sudo apt-get update
