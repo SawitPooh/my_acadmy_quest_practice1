@@ -98,48 +98,48 @@ jobs:
         run: bundle exec rspec spec/models
 
   integration_tests:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      services:
-        postgres:
-          image: postgres:13
-          ports: ['5432:5432']
-          env:
-            POSTGRES_USER: julelti
-            POSTGRES_PASSWORD: Pooh_06202605
-            POSTGRES_DB: my_acadmy_quest_practice1_test
-          options: >-
-            --health-cmd pg_isready
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
+    services:
+      postgres:
+        image: postgres:13
+        ports: ['5432:5432']
+        env:
+          POSTGRES_USER: julelti
+          POSTGRES_PASSWORD: Pooh_06202605
+          POSTGRES_DB: my_acadmy_quest_practice1_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-      env:
-        RAILS_ENV: test
-        DATABASE_URL: postgres://julelti:Pooh_06202605@localhost:5432/my_acadmy_quest_practice1_test
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://julelti:Pooh_06202605@localhost:5432/my_acadmy_quest_practice1_test
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Set up Ruby
-          uses: ruby/setup-ruby@v1
-          with:
-            ruby-version: .ruby-version
-            bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
 
-        - name: Install dependencies
-          run: |
-            bundle install
-            yarn install
+      - name: Install dependencies
+        run: |
+          bundle install
+          yarn install
 
-        - name: Set up database
-          run: |
-            bin/rails db:create
-            bin/rails db:migrate
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
 
-        - name: Run RSpec tests
-          run: bundle exec rspec spec/controllers
+      - name: Run RSpec tests
+        run: bundle exec rspec spec/controllers
 
 
   e2e_tests:
@@ -181,16 +181,16 @@ jobs:
           echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
-          
-      - name: Install ChromeDriver
-        run: sudo apt-get install -y chromium-chromedriver
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-chromedriver
           bundle install
-          bin/rails db:setup
+          yarn install
+
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
 
       - name: Run system specs
         run: bundle exec rspec spec/system
