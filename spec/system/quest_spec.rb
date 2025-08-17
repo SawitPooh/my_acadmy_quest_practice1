@@ -8,7 +8,7 @@ RSpec.describe "Quest management", type: :system do
     fill_in "เพิ่มเควสต์ของฉัน", with: "กินข้าวกับแม่"
 
     # กดปุ่ม Add
-    click_button "เพิ่ม"
+    find('[data-testid="submit-quest"]').click
 
     # ตรวจสอบว่า Quest ใหม่แสดงผลในหน้าจอ
     expect(page).to have_content("กินข้าวกับแม่")
