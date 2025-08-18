@@ -15,6 +15,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def toggle_status
+    @quest = Quest.find(params[:id])
+    @quest.update(status: !@quest.status)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
+    end
+  end
+
   private
 
   def quest_params

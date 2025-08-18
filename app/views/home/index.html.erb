@@ -37,23 +37,27 @@
         <!-- Quest List -->
         <div>
             <ul class="space-y-3">
-                <% @quests.each do |quest| %>
-                <li class="flex justify-between items-start bg-gray-100 px-4 py-3 rounded">
-                    <div class="flex items-start gap-3 flex-1 min-w-0">
-                    <label for="quest_<%= quest.id %>" 
-                        class="text-base md:text-lg break-words whitespace-normal overflow-hidden">
-                        <%= quest.title %>
-                    </label>
-                    </div>
-                    <!-- Check box and delete button only view -->
-                    <div class="flex justify-end items-center gap-3 shrink-0">
-                        <input type="checkbox" id="quest_<%= quest.id %>" class="w-5 h-5">
+            <% @quests.each do |quest| %>
+                <li id="<%= dom_id(quest) %>" class="flex justify-between items-start bg-gray-100 px-4 py-3 rounded">
+                    <%= form_with model: quest, url: toggle_status_quest_path(quest), method: :patch, data: { turbo_stream: true }, class: "flex items-start gap-3 flex-1 min-w-0" do |form| %>
+                        <!-- Left: Quest title -->
+                        <div class="flex items-start gap-3 flex-1 min-w-0">
+                        <label for="quest_<%= quest.id %>" 
+                                class="text-base md:text-lg break-words whitespace-normal overflow-hidden <%= "line-through text-gray-500" if quest.status %>">
+                            <%= quest.title %>
+                        </label>
+                        </div>
+
+                        <!-- Right: checkbox + delete -->
+                        <div class="flex justify-end items-center gap-3 shrink-0">
+                        <%= form.check_box :status, { checked: quest.status, class: "w-5 h-5", id: "quest_#{quest.id}", onchange: "this.form.requestSubmit()" } %>
                         <button class="group">
                             <%= image_tag "delete_icon.svg", alt: "Delete", class: "w-6 h-6 group-hover:opacity-60 transition-opacity duration-100" %>
                         </button>
-                    </div>
+                        </div>
+                    <% end %>
                 </li>
-                <% end %>
+            <% end %>
             </ul>
         </div>
     </div>
