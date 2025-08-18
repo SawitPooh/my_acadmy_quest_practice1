@@ -31,4 +31,30 @@ RSpec.describe "HomeController", type: :request do
       end
     end
   end
+
+  describe "PATCH /quests/:id/toggle_status" do
+    let!(:quest) { Quest.create!(title: "Test Quest", status: initial_status) }
+
+    context "when toggling quest status from false to true" do
+      let(:initial_status) { false }
+
+      it "updates the status to true" do
+        patch toggle_status_quest_path(quest), headers: { "ACCEPT" => "text/vnd.turbo-stream.html" }
+
+        expect(response).to have_http_status(:ok)
+        expect(quest.reload.status).to be true
+      end
+    end
+
+    context "when toggling quest status from true to false" do
+      let(:initial_status) { true }
+
+      it "updates the status to false" do
+        patch toggle_status_quest_path(quest), headers: { "ACCEPT" => "text/vnd.turbo-stream.html" }
+
+        expect(response).to have_http_status(:ok)
+        expect(quest.reload.status).to be false
+      end
+    end
+  end
 end
