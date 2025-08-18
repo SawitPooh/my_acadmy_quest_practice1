@@ -25,6 +25,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def destroy
+    @quest = Quest.find(params[:id])
+    @quest.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
+    end
+  end
+
   private
 
   def quest_params
