@@ -50,7 +50,7 @@
 
                         <!-- Right: checkbox + delete -->
                         <div class="flex justify-end items-center gap-3 shrink-0">
-                        <%= form.check_box :status, { checked: quest.status, class: "w-5 h-5", id: "quest_#{quest.id}", onchange: "this.form.requestSubmit()" } %>
+                        <%= form.check_box :status, { checked: quest.status, class: "w-5 h-5", id: "quest_#{quest.id}", onchange: "this.form.requestSubmit()", data: { testid: "checkbox-quest-#{quest.id}" } } %>
                         <button class="group">
                             <%= image_tag "delete_icon.svg", alt: "Delete", class: "w-6 h-6 group-hover:opacity-60 transition-opacity duration-100" %>
                         </button>
