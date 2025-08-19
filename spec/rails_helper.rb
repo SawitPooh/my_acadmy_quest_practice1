@@ -75,3 +75,6 @@ require 'capybara/rspec'
 
 Capybara.default_driver = :selenium_chrome_headless
 Capybara.server = :puma # เร็วกว่า default webrick
+
+require 'simplecov'
+SimpleCov.start 'rails'

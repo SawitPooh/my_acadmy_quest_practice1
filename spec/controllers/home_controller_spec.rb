@@ -57,4 +57,14 @@ RSpec.describe "HomeController", type: :request do
       end
     end
   end
+
+  describe "DELETE /quests/:id" do
+    let!(:quest) { Quest.create!(title: "Test Quest") }
+    it "deletes a quest and redirects with turboframe" do
+      delete quest_path(quest), headers: { "ACCEPT" => "text/vnd.turbo-stream.html" }
+
+      expect(response).to have_http_status(:ok)
+      expect(Quest.exists?(quest.id)).to be false
+    end
+  end
 end
