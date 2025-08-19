@@ -52,7 +52,10 @@ group :development, :test do
 
   # E2E / System Test
   gem "capybara"
+
+  # Coverage unit, integration test
   gem "selenium-webdriver", "~> 4.15"
+  gem "simplecov", require: false
 end
 
 group :development do
